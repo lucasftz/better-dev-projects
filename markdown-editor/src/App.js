@@ -11,7 +11,7 @@ function App() {
         onChange={e => setMarkdown(e.target.value)}
       />
 
-      <div className="preview">Render markdown here</div>
+      <div className="preview">{markdown}</div>
     </div>
   );
 }
