@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import './App.css';
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
         onChange={e => setMarkdown(e.target.value)}
       />
 
-      <div className="preview">{markdown}</div>
+      <ReactMarkdown className="preview">{markdown}</ReactMarkdown>
     </div>
   );
 }
