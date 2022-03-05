@@ -24,7 +24,7 @@ const Tab = ({ props }) => {
   return (
     <div className="tab" onMouseMove={moveHighlight} onMouseOut={hideHighlight}>
       <div className="highlight" style={highlightStyle} />
-      <a>{props.title}</a>
+      <a href={`/${props.title==="Home" ? "" : props.title.toLowerCase()}`}>{props.title}</a>
     </div>
   )
 }
