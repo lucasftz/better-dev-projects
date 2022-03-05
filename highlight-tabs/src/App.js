@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Tab from './Tab'
+import React from 'react';
+import Tab from './components/Tab'
 import './App.css';
 
 function App() {
