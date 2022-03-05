@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm'
 import './App.css';
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
         onChange={e => setMarkdown(e.target.value)}
       />
 
-      <ReactMarkdown className="preview">{markdown}</ReactMarkdown>
+      <ReactMarkdown className="preview"  remarkPlugins={[remarkGfm]}>{markdown}</ReactMarkdown>
     </div>
   );
 }
