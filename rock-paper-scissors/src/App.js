@@ -20,9 +20,15 @@ function App() {
   const [gameState, setGameState] = useState(null); // win, lose, draw
 
   useEffect(() => {
+    startNewGame();
+  }, []);
+
+  const startNewGame = () => {
+    setGameState(null);
+    setUserChoice(null);
     const randomChoice = choices[Math.floor(Math.random() * choices.length)];
     setComputerChoice(randomChoice);
-  }, []);
+  }
 
   const handleUserChoice = (choice) => {
     const selectedChoice = choices.find(c => c.id === choice);
@@ -70,13 +76,18 @@ function App() {
 
       {/* the popup to show win/lose/draw */}
       {gameState && (
-        <div className={`game-state ${gameState}`}>
+        <div
+          className={`game-state ${gameState}`}
+          onClick={startNewGame}
+        >
           <div>
             <div className="game-state-content">
               <p>{renderComponent(userChoice)}</p>
               {gameState==="draw" ? <p>Draw</p> : <p>You {gameState}!</p>}
               <p>{renderComponent(computerChoice)}</p>
             </div>
+
+            <button onClick={startNewGame}>Play again?</button>
           </div>
       </div>
       )}
