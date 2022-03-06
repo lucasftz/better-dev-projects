@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 // components
 import Question from './components/Question';
@@ -10,19 +10,19 @@ function App() {
   const [questionData, setQuestionData] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(`any`);
 
-  useEffect(() => {
-    getQuestion();
-  }, [selectedCategory]);
-
-  const getQuestion = () => {
+  const getQuestion = useCallback(() => {
     let url = 'https://opentdb.com/api.php?amount=1';
     if (selectedCategory!=='any') url += `&category=${selectedCategory}`;
 
     fetch(url
       ).then(res => res.json()
       ).then(data => setQuestionData(data.results[0])
-      )
-  };
+      );
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    getQuestion();
+  }, [getQuestion, selectedCategory]);
 
   return (
     <div className="app">
