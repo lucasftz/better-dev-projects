@@ -47,22 +47,11 @@ function App() {
   }, []);
 
   const move = (direction) => {
-    if (direction === 'up') {
-      setDirection('up');
-      setY(y => y - 20);
-    }
-    if (direction === 'left') {
-      setDirection('left');
-      setX(x => x - 20);
-    }
-    if (direction === 'down') {
-      setDirection('down');
-      setY(y => y + 20);
-    }
-    if (direction === 'right') {
-      setDirection('right');
-      setX(x => x + 20);
-    }
+    setDirection(direction);
+    if (direction === 'up') setY(y => y - 20);
+    if (direction === 'left') setX(x => x - 20);
+    if (direction === 'down') setY(y => y + 20);
+    if (direction === 'right') setX(x => x + 20);
   }
 
   return (
