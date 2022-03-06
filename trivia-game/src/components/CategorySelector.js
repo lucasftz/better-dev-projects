@@ -11,8 +11,7 @@ function CategorySelector() {
             key={index}
             value={category.id}
             dangerouslySetInnerHTML={{__html: category.name}}
-          >
-          </option>
+          />
         ))}
       </select>
     </div>
