@@ -7,6 +7,7 @@ const accessKey = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
 function App() {
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     getPhotos();
@@ -20,6 +21,15 @@ function App() {
       })
   };
 
+  const searchPhotos = (e) => {
+    e.preventDefault();
+    fetch(`https://api.unsplash.com/search/photos?client_id=${accessKey}&page=${page}&query=${query}`
+      ).then(res => res.json()
+      ).then(data => {
+        setImages(data.results);
+      })
+  };
+
   // return error if there is no access key
   if (!accessKey) {
     return (
@@ -27,14 +37,19 @@ function App() {
         Required: Get your Unsplash API Key first
       </a>
     )
-  }
+  };
 
   return (
     <div className="app">
       <h1>Unsplash Image Gallery!</h1>
 
-      <form>
-        <input type="text" placeholder="Search Unsplash..." />
+      <form onSubmit={searchPhotos}>
+        <input
+          type="text"
+          placeholder="Search Unsplash..."
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+        />
         <button>Search</button>
       </form>
 
