@@ -1,12 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 // icons
 import Rock from './icons/Rock';
 import Paper from './icons/Paper';
 import Scissors from './icons/Scissors';
 
+const choices = [
+  {id: 1, name: 'rock', component: Rock},
+  {id: 2, name: 'paper', component: Paper},
+  {id: 3, name: 'scissors', component: Scissors}
+];
+
 
 function App() {
+  const [userChoice, setUserChoice] = useState(null);
+  const [computerChoice, setComputerChoice] = useState(null);
+
+  useEffect(() => {
+    const randomChoice = choices[Math.floor(Math.random() * choices.length)];
+    setComputerChoice(randomChoice);
+  }, []);
+
+  const handleUserChoice = (choice) => {
+    const selectedChoice = choices.find(c => c.id === choice);
+    setUserChoice(selectedChoice);
+  }
+
   return (
     <div className="app">
       {/* information goes here */}
@@ -38,13 +57,13 @@ function App() {
 
         {/* buttons for my choice */}
         <div>
-          <button className="rock">
+          <button className="rock" onClick={() => handleUserChoice(1)}>
             <Rock />
           </button>
-          <button className="paper">
+          <button className="paper" onClick={() => handleUserChoice(2)}>
             <Paper />
           </button>
-          <button className="scissors">
+          <button className="scissors" onClick={() => handleUserChoice(3)}>
             <Scissors />
           </button>
         </div>
