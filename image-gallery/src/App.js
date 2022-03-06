@@ -9,9 +9,7 @@ function App() {
   useEffect(() => {
     fetch(`https://api.unsplash.com/photos?client_id=${accessKey}`
       ).then(res => res.json()
-      ).then(data => {
-        setImages(data);
-      })
+      ).then(data => setImages(data))
   }, []);
 
   // return error if there is no access key
