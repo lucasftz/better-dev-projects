@@ -8,19 +8,21 @@ import Scoreboard from './components/Scoreboard';
 
 function App() {
   const [questionData, setQuestionData] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(`any`);
 
   useEffect(() => {
     getQuestion();
-  }, []);
+  }, [selectedCategory]);
 
   const getQuestion = () => {
-    const url = `https://opentdb.com/api.php?amount=1`;
+    let url = 'https://opentdb.com/api.php?amount=1';
+    if (selectedCategory!=='any') url += `&category=${selectedCategory}`;
 
     fetch(url
       ).then(res => res.json()
       ).then(data => setQuestionData(data.results[0])
       )
-  }
+  };
 
   return (
     <div className="app">
@@ -29,7 +31,10 @@ function App() {
 
       {/* question header ----------------------- */}
       <div className="question-header">
-        <CategorySelector />
+        <CategorySelector
+          category={selectedCategory}
+          chooseCategory={setSelectedCategory}
+        />
         <Scoreboard />
       </div>
 
