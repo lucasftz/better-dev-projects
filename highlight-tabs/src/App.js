@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Tab from './components/Tab'
 import './App.css';
@@ -8,6 +8,11 @@ import About from './pages/About';
 import Features from './pages/Features';
 
 function App() {
+  useEffect(() => {
+    const urlEnding = window.location.href.slice(22);
+    document.querySelector(`[href="/${urlEnding}"]`).classList.add("is-active");
+  }, []);
+
   return (
     <Router>
       <div className="app">
