@@ -3,8 +3,13 @@ import './App.css';
 
 function App() {
   const canvasReference = useRef(null);
+  const linkDownRef = useRef(null);
+  const linkUpRef = useRef(null);
+  const linkLeftRef = useRef(null);
+  const linkRightRef = useRef(null);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
+  const [direction, setDirection] = useState('down');
 
   // set the dimensions of the canvas to the screen on the initial render
   useEffect(() => {
@@ -17,7 +22,14 @@ function App() {
   useEffect(() => {
     const context = canvasReference.current.getContext('2d');
     context.clearRect(0, 0, window.innerHeight, window.innerWidth);
-    context.fillRect(x, y, 100, 100);
+    // context.fillRect(x, y, 100, 100);
+
+    let theLinkRef;
+    if (direction === 'up') theLinkRef = linkUpRef;
+    if (direction === 'left') theLinkRef = linkLeftRef;
+    if (direction === 'down') theLinkRef = linkDownRef;
+    if (direction === 'right') theLinkRef = linkRightRef;
+    context.drawImage(theLinkRef.current, x, y);
   }, [x, y]);
 
   // add event listener to window to listen for arrow keys
@@ -35,10 +47,22 @@ function App() {
   }, []);
 
   const move = (direction) => {
-    if (direction === 'up') setY(y => y - 20);
-    if (direction === 'left') setX(x => x - 20);
-    if (direction === 'down') setY(y => y + 20);
-    if (direction === 'right') setX(x => x + 20);
+    if (direction === 'up') {
+      setDirection('up');
+      setY(y => y - 20);
+    }
+    if (direction === 'left') {
+      setDirection('left');
+      setX(x => x - 20);
+    }
+    if (direction === 'down') {
+      setDirection('down');
+      setY(y => y + 20);
+    }
+    if (direction === 'right') {
+      setDirection('right');
+      setX(x => x + 20);
+    }
   }
 
   return (
@@ -53,10 +77,10 @@ function App() {
       </div>
 
       <div className="images">
-        <img src="https://i.imgur.com/JYUB0m3.png" alt="Down" />
-        <img src="https://i.imgur.com/GEXD7bk.gif" alt="Right" />
-        <img src="https://i.imgur.com/XSA2Oom.gif" alt="Up" />
-        <img src="https://i.imgur.com/4LGAZ8t.gif" alt="Left" />
+        <img ref={linkDownRef} src="https://i.imgur.com/JYUB0m3.png" alt="Down" />
+        <img ref={linkRightRef} src="https://i.imgur.com/GEXD7bk.gif" alt="Right" />
+        <img ref={linkUpRef} src="https://i.imgur.com/XSA2Oom.gif" alt="Up" />
+        <img ref={linkLeftRef} src="https://i.imgur.com/4LGAZ8t.gif" alt="Left" />
       </div>
     </div>
   );
