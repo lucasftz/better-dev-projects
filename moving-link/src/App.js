@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './App.css';
 
 function App() {
+  const canvasReference = useRef(null);
+
+  useEffect(() => {
+    // set the dimensions of the canvas to the screen on the initial render
+    const context = canvasReference.current.getContext('2d');
+    context.canvas.height = window.innerHeight;
+    context.canvas.width = window.innerWidth;
+
+    context.fillRect(0, 0, 100, 100);
+  }, [])
+
   return (
     <div className="app">
-      <canvas />
+      <canvas ref={canvasReference} />
 
       <div className="arrows">
         <button>Up</button>
