@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, isValidElement } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import './App.css';
 
@@ -6,16 +6,17 @@ const accessKey = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
 
 function App() {
   const [images, setImages] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     getPhotos();
   }, []);
 
   const getPhotos = () => {
-    fetch(`https://api.unsplash.com/photos?client_id=${accessKey}`
+    fetch(`https://api.unsplash.com/photos?client_id=${accessKey}&page=${page}`
       ).then(res => res.json()
       ).then(data => {
-        setImages([...images, ...data])
+        setImages([...images, ...data]);
       })
   };
 
@@ -39,7 +40,10 @@ function App() {
 
       <InfiniteScroll
         dataLength={images.length}
-        next={getPhotos}
+        next={() => {
+          getPhotos();
+          setPage(page => page + 1);
+        }}
         hasMore={true}
         loader={<h4>Loading...</h4>}
       >
