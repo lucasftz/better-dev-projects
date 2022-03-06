@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import './App.css';
 
 const accessKey = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
@@ -7,10 +8,16 @@ function App() {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
+    getPhotos();
+  }, []);
+
+  const getPhotos = () => {
     fetch(`https://api.unsplash.com/photos?client_id=${accessKey}`
       ).then(res => res.json()
-      ).then(data => setImages(data))
-  }, []);
+      ).then(data => {
+        setImages([...images, ...data])
+      })
+  };
 
   // return error if there is no access key
   if (!accessKey) {
@@ -30,16 +37,29 @@ function App() {
         <button>Search</button>
       </form>
 
-      <div className="image-grid">
-        {images.map((image, index) => (
-          <div className="image" key={index}>
-            <img
-              src={image.urls.regular}
-              alt={image.alt_description}
-            />
-          </div>
-        ))}
-      </div>
+      <InfiniteScroll
+        dataLength={images.length}
+        next={getPhotos}
+        hasMore={true}
+        loader={<h4>Loading...</h4>}
+      >
+        <div className="image-grid">
+          {images.map((image, index) => (
+            <a
+              href={image.links.html}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="image"
+              key={index}
+            >
+              <img
+                src={image.urls.regular}
+                alt={image.alt_description}
+              />
+            </a>
+          ))}
+        </div>
+      </InfiniteScroll>
     </div>
   );
 }
