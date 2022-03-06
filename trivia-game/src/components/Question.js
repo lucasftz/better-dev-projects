@@ -1,7 +1,11 @@
 import React from 'react';
+import shuffle from 'lodash.shuffle';
 
 function Question({ questionData }) {
-  const answers = [...questionData.incorrect_answers, questionData.correct_answer];
+  const answers = shuffle([
+    ...questionData.incorrect_answers,
+    questionData.correct_answer
+  ]);
 
   return (
     <div className="question">
