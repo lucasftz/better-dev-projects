@@ -11,23 +11,32 @@ function App() {
 
   useEffect(() => {
     getPhotos();
-  }, []);
+  }, [page]);
 
   const getPhotos = () => {
-    fetch(`https://api.unsplash.com/photos?client_id=${accessKey}&page=${page}`
+    let apiUrl = "https://api.unsplash.com/photos?";
+    if (query) apiUrl = `https://api.unsplash.com/search/photos?query=${query}`;
+    apiUrl += `&page=${page}`;
+    apiUrl += `&client_id=${accessKey}`;
+
+    fetch(apiUrl
       ).then(res => res.json()
       ).then(data => {
-        setImages([...images, ...data]);
+        const imagesFromApi = data.results ?? data;
+        // if page is 1, we need to start the new images from the top
+        if (page===1) {
+          setImages(imagesFromApi)
+          return;
+        };
+        // if page > 1, we are adding pages while we scroll
+        setImages([...images, ...imagesFromApi])
       })
   };
 
   const searchPhotos = (e) => {
     e.preventDefault();
-    fetch(`https://api.unsplash.com/search/photos?client_id=${accessKey}&page=${page}&query=${query}`
-      ).then(res => res.json()
-      ).then(data => {
-        setImages(data.results);
-      })
+    setPage(1);
+    getPhotos();
   };
 
   // return error if there is no access key
@@ -55,10 +64,7 @@ function App() {
 
       <InfiniteScroll
         dataLength={images.length}
-        next={() => {
-          getPhotos();
-          setPage(page => page + 1);
-        }}
+        next={() => setPage(page => page + 1)}
         hasMore={true}
         loader={<h4>Loading...</h4>}
       >
