@@ -17,6 +17,7 @@ function App() {
   const [losses, setLosses] = useState(0);
   const [userChoice, setUserChoice] = useState(null);
   const [computerChoice, setComputerChoice] = useState(null);
+  const [gameState, setGameState] = useState(null); // win, lose, draw
 
   useEffect(() => {
     const randomChoice = choices[Math.floor(Math.random() * choices.length)];
@@ -26,6 +27,14 @@ function App() {
   const handleUserChoice = (choice) => {
     const selectedChoice = choices.find(c => c.id === choice);
     setUserChoice(selectedChoice);
+
+    // determine the winner
+    setGameState("win");
+  }
+
+  const renderComponent = (choice) => {
+    const Component = choice.component;
+    return <Component />
   }
 
   return (
@@ -48,8 +57,16 @@ function App() {
         </div>
       </div>
 
-      {/* the popup to show win/loss/draw */}
-      {/* <div className="game-state"></div> */}
+      {/* the popup to show win/lose/draw */}
+      {gameState && (
+        <div className={`game-state ${gameState}`}>
+          <div><div className="game-state-content">
+            <p>{renderComponent(userChoice)}</p>
+            <p>you won!</p>
+            <p>{renderComponent(computerChoice)}</p>
+          </div></div>
+      </div>
+      )}
 
       <div className="choices">
         {/* choices captions */}
