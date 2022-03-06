@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import './App.css';
+// components
+import Searchbar from './components/Searchbar';
 
 const accessKey = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
 
@@ -33,12 +35,6 @@ function App() {
       })
   };
 
-  const searchPhotos = (e) => {
-    e.preventDefault();
-    setPage(1);
-    getPhotos();
-  };
-
   // return error if there is no access key
   if (!accessKey) {
     return (
@@ -52,15 +48,12 @@ function App() {
     <div className="app">
       <h1>Unsplash Image Gallery!</h1>
 
-      <form onSubmit={searchPhotos}>
-        <input
-          type="text"
-          placeholder="Search Unsplash..."
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-        />
-        <button>Search</button>
-      </form>
+      <Searchbar
+        getPhotos={getPhotos}
+        setPage={setPage}
+        setQuery={setQuery}
+        query={query}
+      />
 
       <InfiniteScroll
         dataLength={images.length}
