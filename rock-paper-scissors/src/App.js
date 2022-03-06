@@ -6,9 +6,9 @@ import Paper from './icons/Paper';
 import Scissors from './icons/Scissors';
 
 const choices = [
-  {id: 1, name: 'rock', component: Rock},
-  {id: 2, name: 'paper', component: Paper},
-  {id: 3, name: 'scissors', component: Scissors}
+  {id: 1, name: 'rock', component: Rock, losesTo: 2},
+  {id: 2, name: 'paper', component: Paper, losesTo: 3},
+  {id: 3, name: 'scissors', component: Scissors, losesTo: 1}
 ];
 
 
@@ -29,7 +29,18 @@ function App() {
     setUserChoice(selectedChoice);
 
     // determine the winner
-    setGameState("win");
+    if (selectedChoice.losesTo === computerChoice.id) {
+      // lose
+      setLosses(losses => losses + 1);
+      setGameState('lose');
+    } else if (computerChoice.losesTo === selectedChoice.id) {
+      // win
+      setWins(wins => wins + 1);
+      setGameState('win');
+    } else {
+      // draw
+      setGameState('draw');
+    }
   }
 
   const renderComponent = (choice) => {
@@ -60,11 +71,13 @@ function App() {
       {/* the popup to show win/lose/draw */}
       {gameState && (
         <div className={`game-state ${gameState}`}>
-          <div><div className="game-state-content">
-            <p>{renderComponent(userChoice)}</p>
-            <p>you won!</p>
-            <p>{renderComponent(computerChoice)}</p>
-          </div></div>
+          <div>
+            <div className="game-state-content">
+              <p>{renderComponent(userChoice)}</p>
+              {gameState==="draw" ? <p>Draw</p> : <p>You {gameState}!</p>}
+              <p>{renderComponent(computerChoice)}</p>
+            </div>
+          </div>
       </div>
       )}
 
