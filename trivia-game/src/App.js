@@ -7,7 +7,7 @@ import ResultModal from './components/ResultModal';
 import Scoreboard from './components/Scoreboard';
 
 function App() {
-  const [question, setQuestion] = useState(null);
+  const [questionData, setQuestionData] = useState(null);
 
   useEffect(() => {
     getQuestion();
@@ -18,7 +18,7 @@ function App() {
 
     fetch(url
       ).then(res => res.json()
-      ).then(data => setQuestion(data.results[0])
+      ).then(data => setQuestionData(data.results[0])
       )
   }
 
@@ -35,7 +35,7 @@ function App() {
 
       {/* the question itself ----------------------- */}
       <div className="question-main">
-        <Question />
+        {questionData && <Question questionData={questionData} />}
       </div>
 
       {/* question footer ----------------------- */}

@@ -1,14 +1,18 @@
 import React from 'react';
 
-const sampleAnswers = ['One', 'Two', 'Three', 'Four'];
+function Question({ questionData }) {
+  const answers = [...questionData.incorrect_answers, questionData.correct_answer];
 
-function Question() {
   return (
     <div className="question">
-      <h2>Question Here</h2>
+      <h2
+        dangerouslySetInnerHTML={{
+          __html: questionData.question
+        }}
+      />
 
-      {sampleAnswers.map((answer, index) => (
-        <button key={index}>answer</button>
+      {answers.map((answer, index) => (
+        <button key={index}>{answer}</button>
       ))}
     </div>
   );
