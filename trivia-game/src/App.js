@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 // components
 import Question from './components/Question';
@@ -7,6 +7,21 @@ import ResultModal from './components/ResultModal';
 import Scoreboard from './components/Scoreboard';
 
 function App() {
+  const [question, setQuestion] = useState(null);
+
+  useEffect(() => {
+    getQuestion();
+  }, []);
+
+  const getQuestion = () => {
+    const url = `https://opentdb.com/api.php?amount=1`;
+
+    fetch(url
+      ).then(res => res.json()
+      ).then(data => setQuestion(data.results[0])
+      )
+  }
+
   return (
     <div className="app">
       {/* show the result modal ----------------------- */}
