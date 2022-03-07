@@ -1,14 +1,14 @@
 import React from 'react';
 
-function Scoreboard() {
+function Scoreboard({ correct, incorrect }) {
   return (
     <div className="scoreboard">
       <div className="wrong">
-        <strong>0</strong>
+        <strong>{incorrect}</strong>
         <span>wrong</span>
       </div>
       <div className="correct">
-        <strong>0</strong>
+        <strong>{correct}</strong>
         <span>correct</span>
       </div>
     </div>

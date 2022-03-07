@@ -10,6 +10,8 @@ function App() {
   const [questionData, setQuestionData] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(`any`);
   const [isCorrect, setIsCorrect] = useState(null);
+  const [correctScore, setCorrectScore] = useState(0);
+  const [incorrectScore, setIncorrectScore] = useState(0);
 
   const getQuestion = useCallback(() => {
     setIsCorrect(null);
@@ -29,6 +31,12 @@ function App() {
   function handleQuestionAnswered(answer) {
     const isAnswerCorrect = answer === questionData.correct_answer;
     setIsCorrect(isAnswerCorrect);
+
+    if (isAnswerCorrect) {
+      setCorrectScore(score => score + 1);
+    } else {
+      setIncorrectScore(score => score + 1);
+    };
   };
 
   return (
@@ -48,7 +56,7 @@ function App() {
           category={selectedCategory}
           chooseCategory={setSelectedCategory}
         />
-        <Scoreboard />
+        <Scoreboard correct={correctScore} incorrect={incorrectScore} />
       </div>
 
       {/* the question itself ----------------------- */}
