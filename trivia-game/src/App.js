@@ -46,7 +46,7 @@ function App() {
 
       {/* the question itself ----------------------- */}
       <div className="question-main">
-        {questionData && <Question questionData={questionData} handleQuestionAnswered={answerQuestion} />}
+        {questionData && <Question questionData={questionData} answerQuestion={handleQuestionAnswered} />}
       </div>
 
       {/* question footer ----------------------- */}
