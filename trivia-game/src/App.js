@@ -9,6 +9,7 @@ import Scoreboard from './components/Scoreboard';
 function App() {
   const [questionData, setQuestionData] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(`any`);
+  const [isCorrect, setIsCorrect] = useState(null);
 
   const getQuestion = useCallback(() => {
     let url = 'https://opentdb.com/api.php?amount=1';
@@ -23,6 +24,11 @@ function App() {
   useEffect(() => {
     getQuestion();
   }, [getQuestion, selectedCategory]);
+
+  function handleQuestionAnswered(answer) {
+    const isAnswerCorrect = answer === questionData.correct_answer;
+    setIsCorrect(isAnswerCorrect);
+  };
 
   return (
     <div className="app">
@@ -40,7 +46,7 @@ function App() {
 
       {/* the question itself ----------------------- */}
       <div className="question-main">
-        {questionData && <Question questionData={questionData} />}
+        {questionData && <Question questionData={questionData} handleQuestionAnswered={answerQuestion} />}
       </div>
 
       {/* question footer ----------------------- */}
