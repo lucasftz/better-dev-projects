@@ -45,7 +45,7 @@ function App() {
 
       {/* question footer ----------------------- */}
       <div className="question-footer">
-        <button>Go to next question 👉</button>
+        <button onClick={getQuestion}>Go to next question 👉</button>
       </div>
     </div>
   );
