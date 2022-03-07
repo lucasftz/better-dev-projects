@@ -2,7 +2,7 @@ import React from 'react';
 
 function ResultModal({ isCorrect, questionData, getQuestion }) {
   return (
-    <div className="result-modal">
+    <div className={`result-modal ${isCorrect ? 'is-correct' : 'is-wrong'}`}>
       <div className="overlay" />
       <div className="result-modal-content">
         {isCorrect &&
