@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
+import useTrivia from './useTrivia';
 import './App.css';
 // components
 import Question from './components/Question';
@@ -7,28 +8,17 @@ import ResultModal from './components/ResultModal';
 import Scoreboard from './components/Scoreboard';
 
 function App() {
-  const [questionData, setQuestionData] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(`any`);
+  const { questionData, getQuestion, category, setCategory } = useTrivia();
   const [isCorrect, setIsCorrect] = useState(null);
-
-  const getQuestion = useCallback(() => {
-    setIsCorrect(null);
-    let url = 'https://opentdb.com/api.php?amount=1';
-    if (selectedCategory!=='any') url += `&category=${selectedCategory}`;
-
-    fetch(url
-      ).then(res => res.json()
-      ).then(data => setQuestionData(data.results[0])
-      );
-  }, [selectedCategory]);
-
-  useEffect(() => {
-    getQuestion();
-  }, [getQuestion, selectedCategory]);
 
   function handleQuestionAnswered(answer) {
     const isAnswerCorrect = answer === questionData.correct_answer;
     setIsCorrect(isAnswerCorrect);
+  };
+
+  function handleNextQuestion() {
+    setIsCorrect(null);
+    getQuestion();
   };
 
   return (
@@ -38,15 +28,15 @@ function App() {
         <ResultModal
           isCorrect={isCorrect}
           questionData={questionData}
-          getQuestion={getQuestion}
+          getQuestion={handleNextQuestion}
         />
       }
 
       {/* question header ----------------------- */}
       <div className="question-header">
         <CategorySelector
-          category={selectedCategory}
-          chooseCategory={setSelectedCategory}
+          category={category}
+          chooseCategory={setCategory}
         />
         <Scoreboard isCorrect={isCorrect} />
       </div>
@@ -58,7 +48,7 @@ function App() {
 
       {/* question footer ----------------------- */}
       <div className="question-footer">
-        <button onClick={getQuestion}>Go to next question 👉</button>
+        <button onClick={handleNextQuestion}>Go to next question 👉</button>
       </div>
     </div>
   );
