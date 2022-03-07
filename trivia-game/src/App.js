@@ -12,6 +12,7 @@ function App() {
   const [isCorrect, setIsCorrect] = useState(null);
 
   const getQuestion = useCallback(() => {
+    setIsCorrect(null);
     let url = 'https://opentdb.com/api.php?amount=1';
     if (selectedCategory!=='any') url += `&category=${selectedCategory}`;
 
@@ -33,7 +34,13 @@ function App() {
   return (
     <div className="app">
       {/* show the result modal ----------------------- */}
-      {/* <ResultModal /> */}
+      {isCorrect!==null &&
+        <ResultModal
+          isCorrect={isCorrect}
+          questionData={questionData}
+          getQuestion={getQuestion}
+        />
+      }
 
       {/* question header ----------------------- */}
       <div className="question-header">

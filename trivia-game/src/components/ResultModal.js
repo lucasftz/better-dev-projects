@@ -1,29 +1,34 @@
 import React from 'react';
 
-function ResultModal() {
+function ResultModal({ isCorrect, questionData, getQuestion }) {
   return (
     <div className="result-modal">
       <div className="overlay" />
       <div className="result-modal-content">
-        <h3>
-          👊👊👊
-          <br />
-          YOU WON!
-        </h3>
+        {isCorrect &&
+          <h3>
+            👊👊👊
+            <br />
+            YOU WON!
+          </h3>
+        }
+        {isCorrect ||
+          <>
+            <h3>
+              😟😢😟
+              <br />
+              YOU LOST!
+            </h3>
+          
+            <div className="correct-answer">
+              <small>The correct answer was:</small>
+              <br />
+              <strong>{questionData.correct_answer}</strong>
+            </div>
+          </>
+        }
 
-        <h3>
-          😟😢😟
-          <br />
-          YOU LOST!
-        </h3>
-
-        <div className="correct-answer">
-          <small>The correct answer was:</small>
-          <br />
-          <strong>Answer here</strong>
-        </div>
-
-        <button>Go to next question 👉</button>
+        <button onClick={getQuestion}>Go to next question 👉</button>
       </div>
     </div>
   );
