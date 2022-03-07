@@ -23,7 +23,9 @@ function ResultModal({ isCorrect, questionData, getQuestion }) {
             <div className="correct-answer">
               <small>The correct answer was:</small>
               <br />
-              <strong>{questionData.correct_answer}</strong>
+              <strong
+                dangerouslySetInnerHTML={{__html: questionData.correct_answer}}>
+              </strong>
             </div>
           </>
         }
