@@ -47,6 +47,8 @@ function Auth0Provider({ children }) {
     };
   }, []);
 
+  if (isLoading) return <div>Loading...</div>
+
   return (
     <Auth0Context.Provider value={{
         isAuthenticated,
