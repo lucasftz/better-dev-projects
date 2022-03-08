@@ -11,10 +11,24 @@ function App() {
   const [endDate, setEndDate] = useState(null);
 
   const updateDate = (selectedDay) => {
+    // handle if user chose before current range
+    if (startDate && selectedDay < startDate) {
+      setStartDate(selectedDay);
+      return setChoosingType('end');
+    };
+
+    // handle if user chose after current range
+    if (endDate && selectedDay > endDate) {
+      setEndDate(selectedDay);
+      return setChoosingType('end');
+    };
+
     if (choosingType === 'start') {
       setStartDate(selectedDay);
-      setChoosingType('end');
-    } else {
+      return setChoosingType('end');
+    };
+    
+    if (choosingType === 'end') {
       setEndDate(selectedDay);
     };
   };
