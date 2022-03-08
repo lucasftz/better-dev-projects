@@ -21,10 +21,16 @@ function App() {
 
   return <>
     <div className="date-chooser">
-      <button className="date-chooser-button">
+      <button
+        className="date-chooser-button"
+        onClick={() => setChoosingType('start')}
+      >
         Start Date <span>{startDate}</span>
       </button>
-      <button className="date-chooser-button">
+      <button
+        className="date-chooser-button"
+        onClick={() => setChoosingType('end')}
+      >
         End Date <span>{endDate}</span>
       </button>
     </div>
