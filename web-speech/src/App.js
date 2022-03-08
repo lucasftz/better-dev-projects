@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useStopwatch } from 'react-timer-hook';
 import './App.css';
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     {time: 5, text: 'how is it going?'},
     {time: 8, text: 'hey there'},
   ]);
+  const {seconds, start, reset} = useStopwatch({autoStart: false});
 
   const updateTimers = (index, time, text) => {
     const newTimers = [...timers];
@@ -40,12 +42,12 @@ function App() {
       </div>
 
       {/* seconds */}
-      <h2>0</h2>
+      <h2>{seconds}</h2>
 
       {/* buttons */}
       <div className="buttons">
-        <button className="start-button">Start</button>
-        <button className="stop-button">Stop</button>
+        <button className="start-button" onClick={start}>Start</button>
+        <button className="stop-button" onClick={reset}>Stop</button>
       </div>
     </div>
   );
