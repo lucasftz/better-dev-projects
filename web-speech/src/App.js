@@ -16,6 +16,11 @@ function App() {
     setTimers(newTimers);
   };
 
+  const addTimer = () => {
+    const newTimers = [...timers, {time: 100, text: 'dummy text'}];
+    setTimers(newTimers);
+  };
+
   return (
     <div className="app">
       <h2>Talk the Talk</h2>
@@ -31,7 +36,7 @@ function App() {
           />
         ))}
 
-        <button className="add-button">Add</button>
+        <button className="add-button" onClick={addTimer}>Add</button>
       </div>
 
       {/* seconds */}
