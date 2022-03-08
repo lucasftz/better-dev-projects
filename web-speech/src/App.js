@@ -10,14 +10,11 @@ function App() {
     {time: 8, text: 'hey there'},
   ]);
   const {seconds, start, reset, isRunning} = useStopwatch({autoStart: false});
-  const {speak, speaking, cancel, supported} = useSpeechSynthesis();
+  const {speak, speaking, supported} = useSpeechSynthesis();
 
   useEffect(() => {
     const foundTimer = timers.find(t => t.time === seconds);
-
-    if (foundTimer) {
-      // speak text
-    };
+    if (foundTimer) speak({text: foundTimer.text});
 
     // check if seconds is greater than last timer's time
     if (seconds > timers[timers.length - 1].time) reset(0, false);
@@ -65,6 +62,8 @@ function App() {
         <button className="start-button" onClick={start}>Start</button>}
         {isRunning &&
         <button className="stop-button" onClick={() => reset(0, false)}>Stop</button>}
+
+        {speaking && <p>I am speaking</p>}
       </div>
     </div>
   );
