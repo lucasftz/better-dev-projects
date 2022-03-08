@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStopwatch } from 'react-timer-hook';
 import './App.css';
 
@@ -9,6 +9,17 @@ function App() {
     {time: 8, text: 'hey there'},
   ]);
   const {seconds, start, reset, isRunning} = useStopwatch({autoStart: false});
+
+  useEffect(() => {
+    const foundTimer = timers.find(t => t.time === seconds);
+
+    if (foundTimer) {
+      // speak text
+    };
+
+    // check if seconds is greater than last timer's time
+    if (seconds > timers[timers.length - 1].time) reset();
+  }, [seconds]);
 
   const updateTimers = (index, time, text) => {
     const newTimers = [...timers];
