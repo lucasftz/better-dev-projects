@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Auth0Context } from '../contexts/auth0-context';
 
 export default function SiteHeader() {
-  const auth0 = useContext(Auth0Context);
+  const { isAuthenticated, login } = useContext(Auth0Context);
 
   return (
     <div className="site-header">
@@ -15,7 +15,7 @@ export default function SiteHeader() {
 
       {/* stuff on the right */}
       <div>
-        <button onClick={auth0.login}>Login</button>
+        {isAuthenticated || <button onClick={login}>Login</button>}
         <button>Logout</button>
       </div>
     </div>
