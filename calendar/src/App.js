@@ -117,4 +117,10 @@ const StyledCalendarDay = styled.button`
   cursor: pointer;
   color: #8096c1;
   background: none;
+  ${props => {
+    return props.isSelected && css`
+      background: #1a1a1a;
+      color: #eee;
+    `
+  }}
 `;
