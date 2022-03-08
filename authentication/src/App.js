@@ -1,13 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import './App.css';
+// pages
 import SiteHeader from './components/SiteHeader';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
-import './App.css';
+// context
+import { Auth0Context } from './contexts/auth0-context';
 // SPA client
 import createAuth0Client from '@auth0/auth0-spa-js';
 
 export default function App() {
+  const auth0 = useContext(Auth0Context);
 
   // initialize auth0 on initial render
   useEffect(() => {
