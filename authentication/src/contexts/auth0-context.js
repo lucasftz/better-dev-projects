@@ -48,9 +48,9 @@ function Auth0Provider({ children }) {
 
   return (
     <Auth0Context.Provider value={{
-        isAuthenticated: isAuthenticated,
-        user: user,
-        isLoading: isLoading,
+        isAuthenticated,
+        user,
+        isLoading,
         login: (...props) => auth0Client.loginWithRedirect(...props),
         logout: (...props) => auth0Client.logout(...props)
       }}>
