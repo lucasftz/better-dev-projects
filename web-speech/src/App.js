@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useStopwatch } from 'react-timer-hook';
+import { useSpeechSynthesis } from 'react-speech-kit';
 import './App.css';
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
     {time: 8, text: 'hey there'},
   ]);
   const {seconds, start, reset, isRunning} = useStopwatch({autoStart: false});
+  const {speak, speaking, cancel, supported} = useSpeechSynthesis();
 
   useEffect(() => {
     const foundTimer = timers.find(t => t.time === seconds);
@@ -33,6 +35,8 @@ function App() {
     const newTimers = [...timers, {time: 100, text: 'dummy text'}];
     setTimers(newTimers);
   };
+
+  if (!supported) return <div>Your browser is unsupported :( Sorry!</div>;
 
   return (
     <div className="app">
