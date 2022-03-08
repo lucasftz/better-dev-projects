@@ -51,7 +51,8 @@ function Auth0Provider({ children }) {
         isAuthenticated: isAuthenticated,
         user: user,
         isLoading: isLoading,
-        login: (...props) => auth0Client.loginWithRedirect(...props)
+        login: (...props) => auth0Client.loginWithRedirect(...props),
+        logout: (...props) => auth0Client.logout(...props)
       }}>
       {children}
     </Auth0Context.Provider>
