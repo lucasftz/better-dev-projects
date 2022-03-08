@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Auth0Context } from '../contexts/auth0-context';
+import { useAuth0 } from '../contexts/auth0-context';
 
 export default function SiteHeader() {
-  const { isAuthenticated, login, logout } = useContext(Auth0Context);
+  const { isAuthenticated, login, logout } = useAuth0();
 
   return (
     <div className="site-header">

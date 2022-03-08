@@ -1,7 +1,8 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import createAuth0Client from '@auth0/auth0-spa-js';
 
 const Auth0Context = createContext();
+const useAuth0 = () => useContext(Auth0Context);
 
 function Auth0Provider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -59,4 +60,4 @@ function Auth0Provider({ children }) {
   );
 };
 
-export { Auth0Context, Auth0Provider }
+export { useAuth0, Auth0Provider }
