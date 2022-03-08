@@ -8,7 +8,7 @@ function App() {
     {time: 5, text: 'how is it going?'},
     {time: 8, text: 'hey there'},
   ]);
-  const {seconds, start, reset} = useStopwatch({autoStart: false});
+  const {seconds, start, reset, isRunning} = useStopwatch({autoStart: false});
 
   const updateTimers = (index, time, text) => {
     const newTimers = [...timers];
@@ -46,8 +46,10 @@ function App() {
 
       {/* buttons */}
       <div className="buttons">
-        <button className="start-button" onClick={start}>Start</button>
-        <button className="stop-button" onClick={reset}>Stop</button>
+        {isRunning ||
+        <button className="start-button" onClick={start}>Start</button>}
+        {isRunning &&
+        <button className="stop-button" onClick={reset}>Stop</button>}
       </div>
     </div>
   );
