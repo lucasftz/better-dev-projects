@@ -1,17 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
-export default function App() {
+function App() {
+  const [timers, setTimers] = useState([
+    {time: 2, text: 'hello world!'},
+    {time: 5, text: 'how is it going?'},
+    {time: 8, text: 'hey there'},
+  ]);
+
+  const updateTimers = (index, time, text) => {
+    const newTimers = [...timers];
+    newTimers[index].time = time;
+    newTimers[index].text = text;
+
+    setTimers(newTimers);
+  };
+
   return (
     <div className="app">
       <h2>Talk the Talk</h2>
 
       <div className="timers">
         {/* timers go here */}
-        <form className="timer">
-          <input type="number" />
-          <input type="text" />
-        </form>
+        {timers.map((timer, index) => (
+          <TimerSlot
+            key={index}
+            index={index}
+            timer={timer}
+            updateTimers={updateTimers}
+          />
+        ))}
 
         <button className="add-button">Add</button>
       </div>
@@ -27,3 +45,34 @@ export default function App() {
     </div>
   );
 }
+
+export default App;
+
+function TimerSlot({ index, timer, updateTimers }) {
+  const [time, setTime] = useState(timer.time);
+  const [text, setText] = useState(timer.text);
+
+  // it is better to only update the whole array onblur which is when
+  // when the input is clicked out of, because then the whole array
+  // doesn't need to be updated on every keystroke, but is still updated
+  function handleBlur() {
+    updateTimers(index, time, text);
+  };
+
+  return (
+    <form className="timer" key={index}>
+      <input
+        type="number"
+        value={time}
+        onChange={e => setTime(e.target.value)}
+        onBlur={handleBlur}
+      />
+      <input
+        type="text"
+        value={text}
+        onChange={e => setText(e.target.value)}
+        onBlur={handleBlur}
+      />
+    </form>
+  )
+};
