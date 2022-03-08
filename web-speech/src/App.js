@@ -5,9 +5,7 @@ import './App.css';
 
 function App() {
   const [timers, setTimers] = useState([
-    {time: 2, text: 'hello world!'},
-    {time: 5, text: 'how is it going?'},
-    {time: 8, text: 'hey there'},
+    {time: 1, text: "Edit me!"}
   ]);
   const {seconds, start, reset, isRunning} = useStopwatch({autoStart: false});
   const {speak, speaking, supported} = useSpeechSynthesis();
@@ -16,8 +14,12 @@ function App() {
     const foundTimer = timers.find(t => t.time === seconds);
     if (foundTimer) speak({text: foundTimer.text});
 
-    // check if seconds is greater than last timer's time
-    if (seconds > timers[timers.length - 1].time) reset(0, false);
+    // find last timer with a time property which is a number
+    const lastTimer = timers.reverse().find(t => {
+      return t.hasOwnProperty("time") && (typeof t.time === "number");
+    });
+    // check if seconds is greater than lastTimer's time
+    if (seconds > lastTimer.time) reset(0, false);
   }, [seconds]);
 
   const updateTimers = (index, time, text) => {
@@ -29,7 +31,7 @@ function App() {
   };
 
   const addTimer = () => {
-    const newTimers = [...timers, {time: 100, text: 'dummy text'}];
+    const newTimers = [...timers, {time: "", text: ""}];
     setTimers(newTimers);
   };
 
