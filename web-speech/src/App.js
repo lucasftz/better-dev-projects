@@ -18,7 +18,7 @@ function App() {
     };
 
     // check if seconds is greater than last timer's time
-    if (seconds > timers[timers.length - 1].time) reset();
+    if (seconds > timers[timers.length - 1].time) reset(0, false);
   }, [seconds]);
 
   const updateTimers = (index, time, text) => {
@@ -60,7 +60,7 @@ function App() {
         {isRunning ||
         <button className="start-button" onClick={start}>Start</button>}
         {isRunning &&
-        <button className="stop-button" onClick={reset}>Stop</button>}
+        <button className="stop-button" onClick={() => reset(0, false)}>Stop</button>}
       </div>
     </div>
   );
