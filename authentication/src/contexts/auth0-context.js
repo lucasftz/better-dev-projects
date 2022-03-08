@@ -15,10 +15,21 @@ function Auth0Provider({ children }) {
     async function initAuth0() {
       const auth0 = await createAuth0Client({
         domain: 'dev-0kausynv.us.auth0.com',
-        client_id: 'WfcCidddR9i47wvtME4tOcqzQON7meQ2'
+        client_id: 'WfcCidddR9i47wvtME4tOcqzQON7meQ2',
+        redirect_uri: window.location.origin
       });
 
       setAuth0Client(auth0);
+
+      // handle redirect when client returns
+      if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
+        try {
+          await auth0.handleRedirectCallback();
+        } catch (error) {
+          alert(error);
+        }
+        window.location.replace(window.location.pathname);
+      }
 
       // check if user is authenticated
       const isAuthenticated = await auth0.isAuthenticated();
@@ -39,7 +50,8 @@ function Auth0Provider({ children }) {
     <Auth0Context.Provider value={{
         isAuthenticated: isAuthenticated,
         user: user,
-        isLoading: isLoading
+        isLoading: isLoading,
+        login: (...props) => auth0Client.loginWithRedirect(...props)
       }}>
       {children}
     </Auth0Context.Provider>
