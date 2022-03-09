@@ -22,9 +22,10 @@ body {
 .projects-container {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  row-gap: 4%;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  row-gap: 1rem;
   background-color: #9dbcbc;
+  justify-items: center;
 }
 
 .projects-container a h1 {
@@ -33,7 +34,7 @@ body {
   width: 100%;
   left: 0px;
   font-family: 'Bebas Neue', cursive;
-  font-size: 50px;
+  font-size: 3em;
   color: rgb(36, 36, 36);
   text-shadow: 4px 4px 4px rgb(223, 223, 223);
   transition-duration: 0.5s;
@@ -53,18 +54,6 @@ body {
   width: 85%;
   position: relative;
   text-align: center;
-}
-
-.projects-container a.left {
-  justify-self: flex-end;
-}
-
-.projects-container a.middle {
-  justify-self: center;
-}
-
-.projects-container a.right {
-  justify-self: flex-start;
 }
 
 .projects-container img {
