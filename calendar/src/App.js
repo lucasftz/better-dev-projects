@@ -38,12 +38,14 @@ function App() {
     <StyledDateChooser>
       <StyledDateChooserBtn
         onClick={() => setChoosingType('start')}
+        isChoosing={choosingType === 'start'}
       >
         Start Date <span>{startDate}</span>
       </StyledDateChooserBtn>
 
       <StyledDateChooserBtn
         onClick={() => setChoosingType('end')}
+        isChoosing={choosingType === 'end'}
       >
         End Date <span>{endDate}</span>
       </StyledDateChooserBtn>
@@ -86,6 +88,7 @@ const StyledDateChooserBtn = styled.button`
   border: none;
   border-bottom: 2px solid rgba(11, 32, 76, 0.2);
   outline: none;
+  border-color: ${props => (props.isChoosing ? '#0b204c' : 'none')};
 
   span {
     display: block;
@@ -123,4 +126,9 @@ const StyledCalendarDay = styled.button`
       color: #eee;
     `
   }}
+
+  &:hover {
+    color: #eee;
+    background: #254381;
+  }
 `;
