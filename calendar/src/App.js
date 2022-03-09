@@ -34,6 +34,11 @@ function App() {
     };
   };
 
+  const checkInBetween = (day) => {
+    if (!startDate || !endDate) return false;
+    return startDate < day && day < endDate;
+  };
+
   return <>
     <StyledDateChooser>
       <StyledDateChooserBtn
@@ -55,11 +60,14 @@ function App() {
       {calendarDates.map((day, index) => {
         const dayNumber = day + 1;
 
+        let isBetween = checkInBetween(dayNumber);
+
         let isSelected = dayNumber === startDate || dayNumber === endDate;
 
         return (
           <StyledCalendarDay
             key={index}
+            isBetween={isBetween}
             isSelected={isSelected}
             onClick={() => updateDate(dayNumber)}
           >
@@ -120,9 +128,17 @@ const StyledCalendarDay = styled.button`
   cursor: pointer;
   color: #8096c1;
   background: none;
+
+  ${props => {
+    return props.isBetween && css`
+      background: #254381 !important;
+      color: #eee;
+    `
+  }}
+
   ${props => {
     return props.isSelected && css`
-      background: #1a1a1a;
+      background: #1a1a1a !important;
       color: #eee;
     `
   }}
