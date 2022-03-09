@@ -19,12 +19,6 @@
   flex-direction: column;
 }
 
-@media (min-width: 1280px) {
-  .web-speech  {
-    max-width: 50%;
-  }
-}
-
 .web-speech h1,
 .web-speech h2,
 .web-speech h3,

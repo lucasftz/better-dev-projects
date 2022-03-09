@@ -73,7 +73,7 @@ function Calendar() {
             onClick={() => updateDate(dayNumber)}
             onMouseOver={() => setHoverDate(dayNumber)}
           >
-            {dayNumber + 1}
+            {dayNumber}
           </StyledCalendarDay>
         )
       })}

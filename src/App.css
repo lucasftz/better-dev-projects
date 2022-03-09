@@ -2,3 +2,22 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.projects-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 5px;
+}
+
+.projects-container img {
+  object-fit: cover;
+  width: 100%;
+  filter: blur(4px);
+  -webkit-filter: blur(4px);
+  transition-duration: 0.5s;
+}
+
+.projects-container img:hover {
+  filter: blur(0);
+  -webkit-filter: blur(0);
+}
