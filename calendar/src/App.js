@@ -10,6 +10,7 @@ function App() {
   const [choosingType, setChoosingType] = useState('start'); // start or end
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [hoverDate, setHoverDate] = useState(null);
 
   const updateDate = (selectedDay) => {
     // handle if user chose before current range
@@ -35,7 +36,7 @@ function App() {
   };
 
   const checkInBetween = (day) => {
-    if (!startDate || !endDate) return false;
+    if (startDate && !endDate) return startDate < day && day < hoverDate;
     return startDate < day && day < endDate;
   };
 
@@ -70,6 +71,7 @@ function App() {
             isBetween={isBetween}
             isSelected={isSelected}
             onClick={() => updateDate(dayNumber)}
+            onMouseOver={() => setHoverDate(dayNumber)}
           >
             {dayNumber + 1}
           </StyledCalendarDay>
