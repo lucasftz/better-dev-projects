@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Outline&display=swap');
+
+.home-page {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  background-color: #006666;
+  text-align: center;
+  color: rgb(223, 223, 223);
+}
+
+.home-page h1 {
+  font-family: 'Londrina Outline', cursive;
+  position: absolute;
+  width: 100%;
+}
