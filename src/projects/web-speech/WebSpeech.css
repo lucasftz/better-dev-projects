@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+.web-speech * {
+  box-sizing: border-box;
+}
+
+.web-speech  {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  padding: 30px;
+  background: #1f1f1f;
+  color: #777;
+}
+
+.web-speech  {
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1280px) {
+  .web-speech  {
+    max-width: 50%;
+  }
+}
+
+.web-speech h1,
+.web-speech h2,
+.web-speech h3,
+.web-speech h4,
+.web-speech h5,
+.web-speech h6 {
+  font-family: 'Luckiest Guy';
+  color: #fbca17;
+  font-size: 60px;
+  margin-top: 0;
+  line-height: 1;
+  margin-bottom: 10px;
+  letter-spacing: 3px;
+}
+
+.web-speech .timers {
+  margin-bottom: 50px;
+}
+
+.web-speech .timer {
+  display: flex;
+}
+
+.web-speech input {
+  background: #444;
+  color: #eee;
+  border: none;
+  padding: 15px;
+  font-size: 21px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  border-radius: 5px;
+}
+
+.web-speech input[type='number'] {
+  width: 100px;
+  flex-shrink: 1;
+}
+
+.web-speech input[type='text'] {
+  flex-grow: 1;
+}
+
+.web-speech button {
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.web-speech .add-button {
+  background: #555;
+  color: #999;
+  margin-top: 10px;
+  font-size: 14px;
+  padding: 10px 20px;
+}
+
+.web-speech .buttons {
+  display: flex;
+  align-items: center;
+}
+
+.web-speech .buttons button {
+  font-size: 21px;
+  padding: 25px 45px;
+}
+
+.web-speech .start-button {
+  background: #2f855a;
+  color: #aedac4;
+}
+
+.web-speech .stop-button {
+  background: #c53030;
+  color: #f0c0c0;
+}
+
+.web-speech .buttons p {
+  font-size: 16px;
+  color: #555;
+}
