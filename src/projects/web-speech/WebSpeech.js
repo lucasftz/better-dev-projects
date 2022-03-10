@@ -10,8 +10,8 @@ function WebSpeech() {
   const { seconds, isRunning, start, reset } = useStopwatch({});
   const { speak, speaking, supported } = useSpeechSynthesis();
 
-  const doReset = useCallback(() => reset(0, false));
-  const doSpeak = useCallback((...p) => speak(...p));
+  const doReset = useCallback(() => reset(0, false), [reset]);
+  const doSpeak = useCallback((...p) => speak(...p), [speak]);
 
   useEffect(() => {
     const foundTimer = timers.find(t => t.time === seconds);
