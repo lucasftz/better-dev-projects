@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import './ImageGallery.css';
 // components
@@ -11,11 +11,7 @@ function ImageGallery() {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState('');
 
-  useEffect(() => {
-    getPhotos();
-  }, [page]);
-
-  const getPhotos = () => {
+  const getPhotos = useCallback(() => {
     let apiUrl = "https://api.unsplash.com/photos?";
     if (query) apiUrl = `https://api.unsplash.com/search/photos?query=${query}`;
     apiUrl += `&page=${page}`;
@@ -33,7 +29,11 @@ function ImageGallery() {
         // if page > 1, we are adding pages while we scroll
         setImages([...images, ...imagesFromApi])
       })
-  };
+  }, [page, query, images]);
+
+  useEffect(() => {
+    getPhotos();
+  }, [page, getPhotos]);
 
   // return error if there is no access key
   if (!accessKey) {

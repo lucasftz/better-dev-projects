@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useStopwatch } from 'react-timer-hook';
 import { useSpeechSynthesis } from 'react-speech-kit';
 import './WebSpeech.css';
@@ -7,22 +7,25 @@ function WebSpeech() {
   const [timers, setTimers] = useState([
     {time: 1, text: "Edit me!"}
   ]);
-  const {seconds, start, reset, isRunning} = useStopwatch({autoStart: false});
-  const {speak, speaking, supported} = useSpeechSynthesis();
+  const { seconds, isRunning, start, reset } = useStopwatch({});
+  const { speak, speaking, supported } = useSpeechSynthesis();
+
+  const doReset = useCallback(() => reset(0, false), [reset]);
+  const doSpeak = useCallback((...p) => speak(...p), [speak]);
 
   useEffect(() => {
     const foundTimer = timers.find(t => t.time === seconds);
-    if (foundTimer) speak({text: foundTimer.text});
+    if (foundTimer) doSpeak({text: foundTimer.text});
 
     // find last timer with a time property which is a number
     const lastTimer = timers.reverse().find(t => {
       return t.hasOwnProperty("time") && (typeof t.time === "number");
     });
     // check if seconds is greater than lastTimer's time
-    if (seconds > lastTimer.time) reset(0, false);
-  }, [seconds]);
+    if (seconds > lastTimer.time) doReset();
+  }, [seconds, timers, doSpeak, doReset]);
 
-  const updateTimers = (index, time, text) => {
+  function updateTimers(index, time, text) {
     const newTimers = [...timers];
     newTimers[index].time = time;
     newTimers[index].text = text;
@@ -30,12 +33,12 @@ function WebSpeech() {
     setTimers(newTimers);
   };
 
-  const addTimer = () => {
+  function addTimer() {
     const newTimers = [...timers, {time: "", text: ""}];
     setTimers(newTimers);
   };
 
-  if (!supported) return <div>Your browser is unsupported :( Sorry!</div>;
+  if (!supported) return <div>Your browser is not supported :( Sorry!</div>;
 
   return (
     <div className="web-speech">

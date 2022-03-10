@@ -45,7 +45,7 @@ const App = () => {
           {/* === Link to image gallery app ========================================= */}
           <Link to='/image-gallery' className="right">
             <h1>Infinite image gallery</h1>
-            <img src={require('./assets/image-gallery.png')} alt="image gallery"/>
+            <img src={require('./assets/image-gallery.png')} alt="infinite gallery"/>
           </Link>
 
           {/* === Link to trivia game app =========================================== */}

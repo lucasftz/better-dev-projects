@@ -1,4 +1,4 @@
-export default [
+const categoryArray = [
   {
     id: 'any',
     name: 'Any Category',
@@ -28,3 +28,5 @@ export default [
   { id: 31, name: 'Entertainment: Japanese Anime &amp; Manga' },
   { id: 32, name: 'Entertainment: Cartoon &amp; Animations' },
 ];
+
+export default categoryArray
