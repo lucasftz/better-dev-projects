@@ -5,24 +5,20 @@ import './WebSpeech.css';
 
 function WebSpeech() {
   const [timers, setTimers] = useState([
-    {time: 1, text: "Edit me!"}
+    {time: 1, text: "Press the button and hear the text!"}
   ]);
   const { seconds, isRunning, start, reset } = useStopwatch({});
   const { speak, speaking, supported } = useSpeechSynthesis();
 
-  const doReset = useCallback(() => reset(0, false), [reset]);
-  const doSpeak = useCallback((...p) => speak(...p), [speak]);
+  const doReset = useCallback(() => reset(0, false), []);
+  const doSpeak = useCallback((...p) => speak(...p), []);
 
   useEffect(() => {
     const foundTimer = timers.find(t => t.time === seconds);
     if (foundTimer) doSpeak({text: foundTimer.text});
 
-    // find last timer with a time property which is a number
-    const lastTimer = timers.reverse().find(t => {
-      return t.hasOwnProperty("time") && (typeof t.time === "number");
-    });
-    // check if seconds is greater than lastTimer's time
-    if (seconds > lastTimer.time) doReset();
+    // check if seconds is greater than the last timers time
+    if (seconds > timers[timers.length - 1].time) doReset();
   }, [seconds, timers, doSpeak, doReset]);
 
   function updateTimers(index, time, text) {
@@ -34,7 +30,7 @@ function WebSpeech() {
   };
 
   function addTimer() {
-    const newTimers = [...timers, {time: "", text: ""}];
+    const newTimers = [...timers, {time: 100, text: "Edit me!"}];
     setTimers(newTimers);
   };
 
