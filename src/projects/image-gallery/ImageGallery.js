@@ -33,7 +33,8 @@ function ImageGallery() {
 
   useEffect(() => {
     getPhotos();
-  }, [page, getPhotos]);
+    // eslint-disable-next-line
+  }, [page]);
 
   // return error if there is no access key
   if (!accessKey) {
