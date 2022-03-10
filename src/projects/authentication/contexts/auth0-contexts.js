@@ -17,7 +17,7 @@ const Auth0Provider = ({ children }) => {
     async function initAuth0() {
       const auth0 = await createAuth0Client({
         domain: 'dev-0kausynv.us.auth0.com',
-        client_id: 'WfcCidddR9i47wvtME4tOcqzQON7meQ2',
+        client_id: '0FBiDsN1Mf1VRMt8YnpRmbfXfncLuovh',
         redirect_uri: `${window.location.origin}/authentication`,
       });
       setAuth0Client(auth0);
