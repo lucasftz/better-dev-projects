@@ -25,9 +25,6 @@ const Auth0Provider = ({ children }) => {
       // handle redirect when user returns
       if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
         await auth0.handleRedirectCallback();
-        
-        // redirect back to home page
-        window.location.replace(window.location.pathname);
       };
 
       // check if user is authenticated
